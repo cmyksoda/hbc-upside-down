@@ -11,5 +11,3 @@ forwarder/*.map
 forwarder/source/*.o
 forwarder/source/*.d
 
-# Markdown stays untracked until Jaxi proofreads it
-*.md
