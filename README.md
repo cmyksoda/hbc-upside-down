@@ -2,8 +2,6 @@
 
 Channel forwarder for Homebrew Channel, now turned on its head. Made for [ZodiaKGalXy's GBAtemp thread](https://gbatemp.net/threads/i-want-to-turn-the-homebrew-channel-banner-upside-down-how.684770/) (his concept art, my banner surgery).
 
-<img width="100%" alt="the stock banner next to the upside-down one" src="preview/before_after.png" />
-
 ## Screenshots
 
 <table>
@@ -47,6 +45,8 @@ The intro plays upside down too: the water pours in from the top and the bubbles
 
 It works with every Homebrew Channel version: it tries the title IDs `OHBC` (1.1.4+), `LULZ` (1.0.8 to 1.1.3), `JODI`, `HAXX`, then the 1.0 betas, and opens the first one that's installed. If none are, it goes back to the Wii Menu.
 
+It runs on IOS58, like the Homebrew Channel itself and today's forwarders.
+
 Want to build it yourself? See [BUILDING.md](BUILDING.md).
 
 ---
@@ -71,7 +71,7 @@ Almost every homebrew forwarder WAD, including all the recoloured HBC forwarders
 | `00000001.app` | The NAND loader. The Wii boots this, and it loads the next content | The common NAND loader most forwarder WADs ship |
 | `00000002.app` | The forwarder: a tiny program that starts something else | `forwarder/source/main.c`, which starts the Homebrew Channel |
 
-The ticket and TMD around them say which title ID the channel installs as (this one is `UHBC`, so it sits next to your real HBC instead of replacing it).
+The ticket and TMD around them say which title ID the channel installs as (this one is `UHBC`, so it sits next to your real HBC instead of replacing it), and which IOS it runs on. Use IOS58: some older forwarders ask for IOS61, and the Wii Menu refused to start ours that way.
 
 `icon.bin` is the picture in the Wii Menu grid, `banner.bin` is the one you see after clicking the channel, and `sound.bin` is its music.
 
@@ -152,6 +152,8 @@ You can do this without scripts, with any tool that unpacks a WAD and [Benzin](h
 4. `benzin m` each file back, put them back in the archives, and pack the channel with the NAND loader and forwarder from any HBC forwarder WAD.
 
 For the icon, use 0 instead of 110 (y just becomes `-y`). It has no `boom` pane.
+
+Community HBC forwarders start `00000000.app` with HBC 1.0's 64-byte build tag (`HomebrewChannel_v1.00`...`twiizers@wiidev`), and this one does too. Fakesign the way CustomizeMii does, leaving the TMD's two bytes at `0x19A` zero: with a build tag and those bytes set, the Wii Menu in Dolphin says "This channel can't be used".
 
 ---
 
