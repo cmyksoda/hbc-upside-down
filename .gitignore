@@ -1,0 +1,15 @@
+# Donor WADs are other people's work and are never redistributed
+donor/
+build/out/
+build/.venv/
+build/tools/benzin/
+__pycache__/
+*.wad
+forwarder/*.dol
+forwarder/*.elf
+forwarder/*.map
+forwarder/source/*.o
+forwarder/source/*.d
+
+# Markdown stays untracked until Jaxi proofreads it
+*.md
