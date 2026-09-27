@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import numpy as np
 
 import render as R
-from hbcud import MENU_STRIP_Y, OUT, WAD_NAME
+from hbcud import MENU_STRIP_Y, OUT, WAD_PATH
 from wiilib import U8, WAD, imd5_unwrap
 
 FPS = 60
@@ -97,7 +97,7 @@ def main():
     jobs += [("banner_Loop", f) for _ in range(LOOPS) for f in range(anims["banner_Loop"][1])]
     seconds = len(jobs) / FPS
 
-    app = WAD.load(f"{OUT}/{WAD_NAME}").contents[0]
+    app = WAD.load(WAD_PATH).contents[0]
     meta = U8.load(app[app.find(b"\x55\xAA\x38\x2D"):])
     wav = f"{OUT}/banner_sound.wav"
     soundtrack(imd5_unwrap(meta.get("meta/sound.bin")), seconds, wav)

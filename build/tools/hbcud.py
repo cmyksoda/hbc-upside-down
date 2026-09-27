@@ -25,7 +25,10 @@ BANNER_SHIFT_Y = 228 + MENU_STRIP_Y
 ICON_SHIFT_Y = 0
 
 TITLE_ID = "UHBC"
+# IOS58 is what HBC itself and current forwarders use; the donor asks for IOS61.
+IOS = 58
 WAD_NAME = "Homebrew Channel Upside Down - UHBC [cmyksoda].wad"
+WAD_PATH = os.path.join(ROOT, WAD_NAME)
 
 BANNER_CANVAS = (832, 456)     # 16:9 shows 4/3 more width than 4:3
 BANNER_43 = (608, 456)

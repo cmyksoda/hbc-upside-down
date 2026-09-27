@@ -8,8 +8,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from hbcud import (BENZIN, DONOR_FORWARDER_WAD, FORWARDER_DOL, OUT, TITLE_ID,
-                   WAD_NAME, benzin)
+from hbcud import (BENZIN, DONOR_FORWARDER_WAD, FORWARDER_DOL, IOS, TITLE_ID, WAD_PATH,
+                   benzin)
 from wiilib import U8, WAD, imet_titles, imet_verify, unpack_lz77_imd5
 
 ICON_CAP = 0x19000      # a bigger icon.bin bricks the Menu after Health & Safety
@@ -29,22 +29,26 @@ def check(ok, msg):
 
 
 def main():
-    wad = WAD.load(f"{OUT}/{WAD_NAME}")
+    wad = WAD.load(WAD_PATH)
     tmd = wad.tmd
     check(wad.title_id[4:].decode() == TITLE_ID, f"title ID is {TITLE_ID}")
     check(TITLE_ID not in TAKEN, f"{TITLE_ID} doesn't clash with HBC or known forwarders")
     check(len(wad.contents) == 3, "three contents: banner, NAND loader, forwarder")
+    check(tmd[0x184:0x18C] == struct.pack(">II", 1, IOS), f"runs on IOS{IOS}")
     check(struct.unpack(">H", tmd[0x1E0:0x1E2])[0] == 1, "boot content is the NAND loader")
     for i, c in enumerate(wad.contents):
         e = 0x1E4 + i * 36
         check(tmd[e + 16:e + 36] == hashlib.sha1(c).digest(), f"content {i} SHA-1 matches TMD")
     check(hashlib.sha1(wad.tmd[0x140:]).digest()[0] == 0, "TMD fakesigned")
+    check(tmd[0x19A:0x19C] == bytes(2), "TMD 0x19A left zero")
     check(hashlib.sha1(wad.tik[0x140:]).digest()[0] == 0, "ticket fakesigned")
     check(wad.contents[1] == WAD.load(DONOR_FORWARDER_WAD).contents[1],
           "NAND loader untouched from the donor")
     check(wad.contents[2] == open(FORWARDER_DOL, "rb").read(), "forwarder is our DOL")
 
     app = wad.contents[0]
+    check(app[:0x40] == WAD.load(DONOR_FORWARDER_WAD).contents[0][:0x40],
+          "build tag matches the community forwarder's")
     check(imet_verify(app), "IMET MD5 valid")
     off = app.find(b"IMET")
     sizes = struct.unpack(">III", app[off + 0x0C:off + 0x18])

@@ -10,7 +10,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from hbcud import BANNER_SHIFT_Y, BENZIN, DONOR_HBC_WAD, ICON_SHIFT_Y, OUT, benzin
+from hbcud import (BANNER_SHIFT_Y, BENZIN, DONOR_FORWARDER_WAD, DONOR_HBC_WAD, ICON_SHIFT_Y,
+                   OUT, benzin)
 from wiilib import U8, WAD, imet_set, pack_lz77_imd5, unpack_lz77_imd5
 
 FLOAT = r"[-\d.eE+]+"
@@ -111,7 +112,9 @@ def main():
         meta.replace(f"meta/{kind}.bin", pack_lz77_imd5(u8))
         sizes[kind] = len(u8)
     sizes["sound"] = len(meta.get("meta/sound.bin")) - 32
-    out = imet_set(app[:cut] + meta.to_bytes(), None,
+    # Start with the 64-byte build tag community HBC forwarders carry, not HBC 1.1's own.
+    prefix = WAD.load(DONOR_FORWARDER_WAD).contents[0][:0x40] + app[0x40:cut]
+    out = imet_set(prefix + meta.to_bytes(), None,
                    (sizes["icon"], sizes["banner"], sizes["sound"]))
     os.makedirs(OUT, exist_ok=True)
     open(f"{OUT}/00000000.app", "wb").write(out)

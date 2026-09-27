@@ -409,7 +409,10 @@ class WAD:
     def save(self, path, fakesign=True):
         self._refresh_tmd()
         if fakesign:
-            self.tmd = self._fakesign(self.tmd, 0x19A)   # TMD  padding after groupID
+            # Leave the u16 at 0x19A zero, as CustomizeMii does: with it set, the Wii Menu
+            # in Dolphin refused to start a channel whose banner carries an HBC build tag.
+            self.tmd = self.tmd[:0x19A] + b"\0\0" + self.tmd[0x19C:]
+            self.tmd = self._fakesign(self.tmd, 0x1D4)   # TMD  reserved field
             self.tik = self._fakesign(self.tik, 0x262)   # ticket padding
         key = self.title_key()
         blobs = []
