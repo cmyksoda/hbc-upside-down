@@ -1,4 +1,5 @@
-"""README previews: icon GIFs, banner stills and the flipped intro, in preview/."""
+"""README previews in preview/: icon GIFs and banner stills. banner_intro.gif is cut
+from a Dolphin recording of the real Wii Menu instead."""
 
 import os
 import sys
@@ -11,24 +12,14 @@ import render as R
 from hbcud import MENU_STRIP_Y, OUT, ROOT
 
 PREVIEW = os.path.join(ROOT, "preview")
-STRIP = (214, 214, 218)
+STRIP = (255, 255, 255)
 # 16:9 shows 810.67 x 456 layout units; render that and stretch to the export size.
 VIEWS = {"4_3": ((608, 456), (128, 96), (608, 456), (384, 288)),
          "16_9": ((811, 456), (171, 96), (832, 456), (528, 288))}
 
 
-# The Wii Menu's own button strip, cropped from a 16:9 Dolphin capture (836x456).
-REAL_STRIP = os.path.join(os.path.dirname(__file__), "assets", "menu_strip_16_9.png")
-REAL_STRIP_TOP = 339
-
-
-def real_strip(img):
-    img.paste(Image.open(REAL_STRIP).convert("RGB"), (0, REAL_STRIP_TOP))
-    return img
-
-
 def menu_view(img):
-    """Paint the Menu's button strip over the part of the banner it hides."""
+    """Blank out the part of the banner the Menu's button strip hides."""
     cut = round(img.height / 2 - MENU_STRIP_Y)
     img.paste(STRIP, (0, cut, img.width, img.height))
     return img
@@ -55,13 +46,6 @@ def main():
         frames = [R.render_frame(ip, im, it, icon, f, icanvas).resize(iout, Image.NEAREST)
                   for f in range(0, isize, step)]
         gif(frames, f"{PREVIEW}/icon_{name}.gif", step)
-
-    start, ssize = ba["banner_Start"]
-    step = 4
-    frames = [real_strip(R.render_frame(bp, bm, bt, start, f, (811, 456))
-                         .resize((836, 456), Image.LANCZOS)).resize((418, 228), Image.LANCZOS)
-              for f in range(0, ssize, step)]
-    gif(frames, f"{PREVIEW}/banner_intro.gif", step)
 
 
 if __name__ == "__main__":
