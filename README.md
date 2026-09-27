@@ -38,14 +38,26 @@ The intro plays upside down too: the water pours in from the top and the bubbles
 
 <img width="100%" alt="the banner intro, upside down" src="preview/banner_intro.gif" />
 
-## Installing
+## Requirements
 
-1. Install `Homebrew Channel Upside Down - UHBC [cmyksoda].wad` with any WAD manager.
-2. You still need the real Homebrew Channel installed. This channel only opens it.
+- **IOS58** — update to System Menu 4.3, or use the [IOS58 Installer](https://wiibrew.org/wiki/IOS58_Installer).
+- **The Homebrew Channel**, any version. This channel tries to open, in order: `OHBC` (1.1.4+), `LULZ` (1.0.8 to 1.1.3), `JODI`, `HAXX`, then the 1.0 betas, and goes back to the Wii Menu if none are installed.
 
-It works with every Homebrew Channel version: it tries the title IDs `OHBC` (1.1.4+), `LULZ` (1.0.8 to 1.1.3), `JODI`, `HAXX`, then the 1.0 betas, and opens the first one that's installed. If none are, it goes back to the Wii Menu.
+| Title ID | Region | NAND Blocks |
+|---|---|---|
+| UHBC (0001000155484243) | Free | 7 |
 
-It runs on IOS58, like the Homebrew Channel itself and today's forwarders.
+## Install
+
+> **Install BootMii and/or Priiloader first.** I took time to make sure that this `.wad` is safe, but one should always have protections in place in case of a banner brick.
+
+1. Download the `.zip` from the releases page and extract the `.wad` inside.
+2. Install using the WAD manager of your choice.
+3. Keep the Homebrew Channel installed (this forwarder doesn't replace the original).
+
+## Uninstall
+
+- Use the WAD manager you used to install the channel to uninstall it, or, delete it from the Wii system settings.
 
 Want to build it yourself? See [BUILDING.md](BUILDING.md).
 
