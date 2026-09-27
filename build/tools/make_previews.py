@@ -8,14 +8,23 @@ sys.path.insert(0, os.path.dirname(__file__))
 from PIL import Image
 
 import render as R
-from hbcud import DONOR_HBC_WAD, MENU_STRIP_Y, OUT, ROOT
-from wiilib import U8, WAD
+from hbcud import MENU_STRIP_Y, OUT, ROOT
 
 PREVIEW = os.path.join(ROOT, "preview")
 STRIP = (214, 214, 218)
 # 16:9 shows 810.67 x 456 layout units; render that and stretch to the export size.
 VIEWS = {"4_3": ((608, 456), (128, 96), (608, 456), (384, 288)),
          "16_9": ((811, 456), (171, 96), (832, 456), (528, 288))}
+
+
+# The Wii Menu's own button strip, cropped from a 16:9 Dolphin capture (836x456).
+REAL_STRIP = os.path.join(os.path.dirname(__file__), "assets", "menu_strip_16_9.png")
+REAL_STRIP_TOP = 339
+
+
+def real_strip(img):
+    img.paste(Image.open(REAL_STRIP).convert("RGB"), (0, REAL_STRIP_TOP))
+    return img
 
 
 def menu_view(img):
@@ -49,24 +58,10 @@ def main():
 
     start, ssize = ba["banner_Start"]
     step = 4
-    frames = [menu_view(R.render_frame(bp, bm, bt, start, f, (811, 456))
-                        .resize((832, 456), Image.LANCZOS)).resize((416, 228), Image.LANCZOS)
+    frames = [real_strip(R.render_frame(bp, bm, bt, start, f, (811, 456))
+                         .resize((836, 456), Image.LANCZOS)).resize((418, 228), Image.LANCZOS)
               for f in range(0, ssize, step)]
     gif(frames, f"{PREVIEW}/banner_intro.gif", step)
-
-    # Before and after, the stock banner rendered from the untouched donor.
-    app = WAD.load(DONOR_HBC_WAD).contents[0]
-    meta = U8.load(app[app.find(b"\x55\xAA\x38\x2D"):])
-    open(f"{OUT}/stock_banner.bin", "wb").write(meta.get("meta/banner.bin"))
-    _, sp, sm, st, sa = R.load(f"{OUT}/stock_banner.bin")
-    sloop, _ = sa["banner_Loop"]
-    pair = [menu_view(R.render_frame(*args, size // 2, (608, 456)))
-            for args in ((sp, sm, st, sloop), (bp, bm, bt, loop))]
-    both = Image.new("RGBA", (608 * 2 + 16, 456), (0, 0, 0, 0))
-    both.paste(pair[0], (0, 0))
-    both.paste(pair[1], (608 + 16, 0))
-    both.save(f"{PREVIEW}/before_after.png")
-    print("  preview/before_after.png")
 
 
 if __name__ == "__main__":
