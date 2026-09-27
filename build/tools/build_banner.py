@@ -1,7 +1,7 @@
 """Turn the Homebrew Channel's banner and icon upside down.
 
-Each child of RootPane spins 180 degrees about the origin, since the Menu owns
-RootPane itself. The banner also shifts so the flip centres on what the Menu shows.
+Each child of RootPane spins 180 degrees about the origin; RootPane stays identity,
+as in stock banners. The banner also shifts so the flip centres on what the Menu shows.
 """
 
 import os
