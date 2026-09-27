@@ -76,6 +76,11 @@ def soundtrack(bns, seconds, path):
         w.writeframes(track.tobytes())
 
 
+def init(*state):
+    global PANES, MATS, TEX, ANIMS
+    PANES, MATS, TEX, ANIMS = state
+
+
 def frame(job):
     anim, f = job
     img = R.render_frame(PANES, MATS, TEX, ANIMS[anim][0], f, CANVAS, SIZE[1] / CANVAS[1])
@@ -85,12 +90,11 @@ def frame(job):
 
 
 def main():
-    global PANES, MATS, TEX, ANIMS
     src = sys.argv[1] if len(sys.argv) > 1 else f"{OUT}/banner.bin"
     dst = sys.argv[2] if len(sys.argv) > 2 else f"{OUT}/banner_16_9.mp4"
-    _, PANES, MATS, TEX, ANIMS = R.load(src)
-    jobs = [("banner_Start", f) for f in range(ANIMS["banner_Start"][1])]
-    jobs += [("banner_Loop", f) for _ in range(LOOPS) for f in range(ANIMS["banner_Loop"][1])]
+    _, panes, mats, tex, anims = R.load(src)
+    jobs = [("banner_Start", f) for f in range(anims["banner_Start"][1])]
+    jobs += [("banner_Loop", f) for _ in range(LOOPS) for f in range(anims["banner_Loop"][1])]
     seconds = len(jobs) / FPS
 
     app = WAD.load(f"{OUT}/{WAD_NAME}").contents[0]
@@ -104,7 +108,7 @@ def main():
          "-c:v", "libx264", "-crf", "18", "-preset", "slow", "-pix_fmt", "yuv420p",
          "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", dst],
         stdin=subprocess.PIPE)
-    with Pool() as pool:
+    with Pool(initializer=init, initargs=(panes, mats, tex, anims)) as pool:
         for i, raw in enumerate(pool.imap(frame, jobs, chunksize=4)):
             ff.stdin.write(raw)
             if i % 120 == 0:
