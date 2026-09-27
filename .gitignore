@@ -4,7 +4,6 @@ build/out/
 build/.venv/
 build/tools/benzin/
 __pycache__/
-*.wad
 forwarder/*.dol
 forwarder/*.elf
 forwarder/*.map

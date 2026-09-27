@@ -1,6 +1,6 @@
 # Building
 
-The build runs on Linux and makes `build/out/Homebrew Channel Upside Down - UHBC [cmyksoda].wad`.
+The build runs on Linux and makes `Homebrew Channel Upside Down - UHBC [cmyksoda].wad` at the root of the repo.
 
 ## You'll need
 
