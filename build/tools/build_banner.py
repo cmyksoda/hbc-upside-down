@@ -42,7 +42,7 @@ def flip_layout(xml, shift, grow):
             return m.group(0)
         body = m.group(3)
         body = re.sub(rf"(<translate>\s*<x>)({FLOAT})(</x>\s*<y>)({FLOAT})(</y>)",
-                      lambda t: f"{t[1]}{-float(t[2]):.6f}{t[3]}{shift - float(t[4]):.6f}{t[5]}",
+                      lambda t: f"{t[1]}{-float(t[2]) + 0.0:.6f}{t[3]}{shift - float(t[4]) + 0.0:.6f}{t[5]}",
                       body, count=1)
         body = re.sub(rf"(<rotate>.*?<z>)({FLOAT})(</z>)",
                       lambda t: f"{t[1]}{float(t[2]) + 180:.6f}{t[3]}", body, count=1, flags=re.S)
