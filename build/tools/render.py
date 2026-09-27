@@ -162,8 +162,9 @@ def sample(tex, s, t, wrap_s, wrap_t):
     return top * (1 - fy) + bot * fy
 
 
-def render_frame(panes, mats, tex, anim, frame, canvas):
-    W, H = canvas
+def render_frame(panes, mats, tex, anim, frame, canvas, scale=1.0):
+    """`canvas` is in layout units; the image is `scale` pixels per unit."""
+    W, H = round(canvas[0] * scale), round(canvas[1] * scale)
     img = np.zeros((H, W, 3), dtype=np.float32)
     world, galpha = [], []
     for p in panes:
@@ -188,15 +189,16 @@ def render_frame(panes, mats, tex, anim, frame, canvas):
         w, h = p["w"], p["h"]
         corners = m @ np.array([[-w / 2, w / 2, -w / 2, w / 2],
                                 [h / 2, h / 2, -h / 2, -h / 2], [1, 1, 1, 1]])
-        px, py = corners[0] + W / 2, H / 2 - corners[1]
+        px, py = W / 2 + corners[0] * scale, H / 2 - corners[1] * scale
         x0, x1 = max(0, int(np.floor(px.min()))), min(W, int(np.ceil(px.max())))
         y0, y1 = max(0, int(np.floor(py.min()))), min(H, int(np.ceil(py.max())))
         if x0 >= x1 or y0 >= y1:
             continue
         gx, gy = np.meshgrid(np.arange(x0, x1) + 0.5, np.arange(y0, y1) + 0.5)
         inv = np.linalg.inv(m)
-        lx = inv[0, 0] * (gx - W / 2) + inv[0, 1] * (H / 2 - gy) + inv[0, 2]
-        ly = inv[1, 0] * (gx - W / 2) + inv[1, 1] * (H / 2 - gy) + inv[1, 2]
+        X, Y = (gx - W / 2) / scale, (H / 2 - gy) / scale
+        lx = inv[0, 0] * X + inv[0, 1] * Y + inv[0, 2]
+        ly = inv[1, 0] * X + inv[1, 1] * Y + inv[1, 2]
         u, v = (lx + w / 2) / w, (h / 2 - ly) / h
         inside = (u >= 0) & (u <= 1) & (v >= 0) & (v <= 1)
         if not inside.any():

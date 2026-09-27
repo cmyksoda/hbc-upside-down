@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Builds build/out/<WAD_NAME>. Pass --previews to also render GIFs (a few minutes).
+# Builds build/out/<WAD_NAME>. Pass --previews to also render preview/ and an MP4.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -23,7 +23,6 @@ echo "== verify"
 
 if [ "${1:-}" = "--previews" ]; then
     echo "== previews"
-    mkdir -p build/out/preview
-    "$PY" build/tools/render.py build/out/banner.bin build/out/preview/banner
-    "$PY" build/tools/render.py build/out/icon.bin build/out/preview/icon
+    "$PY" build/tools/make_previews.py
+    "$PY" build/tools/make_video.py
 fi
