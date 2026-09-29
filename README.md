@@ -1,6 +1,6 @@
 # The Homebrew Channel, Upside Down
 
-Channel forwarder for Homebrew Channel, now turned on its head. Made for [ZodiaKGalXy's GBAtemp thread](https://gbatemp.net/threads/i-want-to-turn-the-homebrew-channel-banner-upside-down-how.684770/) (his concept art, my banner surgery).
+Channel forwarder for Homebrew Channel, now turned on its head (please do not tilt your Wii to match). Made for [ZodiaKGalXy's GBAtemp thread](https://gbatemp.net/threads/i-want-to-turn-the-homebrew-channel-banner-upside-down-how.684770/) (his concept art, my banner surgery).
 
 ## Screenshots
 
@@ -49,11 +49,11 @@ The intro plays upside down too: the water pours in from the top and the bubbles
 
 ## Install
 
-> **Install BootMii and/or Priiloader first.** I took time to make sure that this `.wad` is safe, but one should always have protections in place in case of a banner brick.
+> **Install BootMii and/or Priiloader first.** Yes, really. Also maybe a snack. I took time to make sure that this `.wad` is safe, but one should always have protections in place in case of a banner brick.
 
 1. Download the `.zip` from the releases page and extract the `.wad` inside.
 2. Install using the WAD manager of your choice.
-3. Keep the Homebrew Channel installed (this forwarder doesn't replace the original).
+3. Keep the Homebrew Channel installed (this forwarder doesn't replace the original, it just makes fun of it).
 
 ## Uninstall
 
@@ -65,7 +65,7 @@ Want to build it yourself? See [BUILDING.md](BUILDING.md).
 
 ## Tutorial: How a forwarder channel is put together
 
-New to these files? Here's some important words to understand:
+New to these files? Here's some important words to understand (there will be a quiz, upside down):
 
 - **WAD**: the file you install a channel from.
 - **Title ID**: the four-letter code that tells channels apart (`LULZ` is the Homebrew Channel, this one is `UHBC`).
@@ -176,6 +176,7 @@ Community HBC forwarders start `00000000.app` with HBC 1.0's 64-byte build tag (
 - **SquidMan, comex and megazig** for Benzin.
 - **ForwarderFactory** and **MarioCube** for archiving the Homebrew Channel and its forwarders.
 - Made by **cmyksoda**.
+- Gravity, for being consistently downward. Sorry for the disruption.
 
 ## License
 
