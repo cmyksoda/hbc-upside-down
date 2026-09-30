@@ -49,11 +49,11 @@ The intro plays upside down too: the water pours in from the top and the bubbles
 
 ## Install
 
-> **Install BootMii and/or Priiloader first.** Yes, really. Also maybe a snack. I took time to make sure that this `.wad` is safe, but one should always have protections in place in case of a banner brick.
+> **Install BootMii and/or Priiloader first.** I took time to make sure that this `.wad` is safe, but one should always have protections in place in case of a banner brick.
 
 1. Download the `.zip` from the releases page and extract the `.wad` inside.
 2. Install using the WAD manager of your choice.
-3. Keep the Homebrew Channel installed (this forwarder doesn't replace the original, it just makes fun of it).
+3. Keep the Homebrew Channel installed (this forwarder doesn't replace the original, it just clones it and permanently alters the flow of gravity on its clone).
 
 ## Uninstall
 
