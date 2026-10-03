@@ -181,3 +181,7 @@ Community HBC forwarders start `00000000.app` with HBC 1.0's 64-byte build tag (
 ## License
 
 GPLv3, see `LICENSE`. The Homebrew Channel's banner art is fail0verflow's, under GPLv2 or later.
+
+---
+
+*This project was made with AI assistance. For more information, see [my AI usage statement](https://github.com/cmyksoda/cmyksoda/blob/main/AI_USAGE.md).*
