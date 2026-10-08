@@ -29,6 +29,13 @@ TITLE_ID = "UHBC"
 IOS = 58
 WAD_NAME = "Homebrew Channel Upside Down - UHBC [cmyksoda].wad"
 WAD_PATH = os.path.join(ROOT, WAD_NAME)
+WII_WAD_PATH = os.path.join(OUT, "Homebrew Channel Upside Down - UHBC [cmyksoda] - Wii.wad")
+WII_LOADER_SHA256 = "b97b87febd6776984dc626997d9feec5ea6da84b60feeea0902f6b596a407e5d"
+
+# FIX94 tiny-vwii-nand-loader r2, also used by MarioCube's Green HBC v2 vWii.
+VWII_LOADER = os.path.join(ROOT, "donor", "00000001-vwii.app")
+VWII_LOADER_SHA256 = "69e4d631bee303c549aa813117fee623aa576f0d2693a4ee7c7679bf57993392"
+VWII_WAD_PATH = os.path.join(OUT, "Homebrew Channel Upside Down - UHBC [cmyksoda] - vWii.wad")
 
 BANNER_CANVAS = (832, 456)     # 16:9 shows 4/3 more width than 4:3
 BANNER_43 = (608, 456)

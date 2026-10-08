@@ -40,19 +40,19 @@ The intro plays upside down too: the water pours in from the top and the bubbles
 
 ## Requirements
 
-- **IOS58** — update to System Menu 4.3, or use the [IOS58 Installer](https://wiibrew.org/wiki/IOS58_Installer).
+- **IOS58** — on an original Wii, update to System Menu 4.3 or use the [IOS58 Installer](https://wiibrew.org/wiki/IOS58_Installer). Wii U’s vWii already has its own IOS58; don’t use the Wii installer there.
 - **The Homebrew Channel**, any version. This channel tries to open, in order: `OHBC` (1.1.4+), `LULZ` (1.0.8 to 1.1.3), `JODI`, `HAXX`, then the 1.0 betas, and goes back to the Wii Menu if none are installed.
 
 | Title ID | Region | NAND Blocks |
 |---|---|---|
-| UHBC (0001000155484243) | Free | 7 |
+| UHBC (0001000155484243) | Free | 7 (Wii), 6 (vWii) |
 
 ## Install
 
-> **Install BootMii and/or Priiloader first.** I took time to make sure that this `.wad` is safe, but one should always have protections in place in case of a banner brick.
+> Have recovery protection in place before installing custom channels: BootMii/Priiloader on Wii, or Priiloader on vWii.
 
-1. Download the `.zip` from the releases page and extract the `.wad` inside.
-2. Install using the WAD manager of your choice.
+1. Download **`Wii-ONLY-UHBC-v1.zip`** for an original Wii, or **`vWii-ONLY-UHBC-v1.zip`** for Wii U’s vWii, from the releases page. Extract the `.wad` inside.
+2. Install using a WAD manager compatible with your console. Both versions use `UHBC`, so installing one replaces the other.
 3. Keep the Homebrew Channel installed (this forwarder doesn't replace the original, it just clones it and permanently alters the flow of gravity on its clone).
 
 ## Uninstall
@@ -80,7 +80,7 @@ Almost every homebrew forwarder WAD, including all the recoloured HBC forwarders
 | Content | What it is | In this channel |
 |---|---|---|
 | `00000000.app` | The banner: an `IMET` header (channel names), then a U8 archive with `icon.bin`, `banner.bin` and `sound.bin` | The Homebrew Channel's own banner, flipped |
-| `00000001.app` | The NAND loader. The Wii boots this, and it loads the next content | The common NAND loader most forwarder WADs ship |
+| `00000001.app` | The NAND loader. The Wii boots this, and it loads the next content | The original Wii loader, or FIX94’s tiny vWii NAND loader |
 | `00000002.app` | The forwarder: a tiny program that starts something else | `forwarder/source/main.c`, which starts the Homebrew Channel |
 
 The ticket and TMD around them say which title ID the channel installs as (this one is `UHBC`, so it sits next to your real HBC instead of replacing it), and which IOS it runs on. Use IOS58: some older forwarders ask for IOS61, and the Wii Menu refused to start ours that way.
@@ -175,12 +175,13 @@ Community HBC forwarders start `00000000.app` with HBC 1.0's 64-byte build tag (
 - **Team Twiizers / fail0verflow** for the Homebrew Channel and its banner, whose source is [public under the GPL](https://github.com/fail0verflow/hbc).
 - **SquidMan, comex and megazig** for Benzin.
 - **ForwarderFactory** and **MarioCube** for archiving the Homebrew Channel and its forwarders.
+- **FIX94**, megazig, the TinyLoad authors and dimok for the [vWii NAND loader](https://github.com/FIX94/tiny-vwii-nand-loader).
 - Made by **cmyksoda**.
 - Gravity, for being consistently downward. Sorry for the disruption.
 
 ## License
 
-GPLv3, see `LICENSE`. The Homebrew Channel's banner art is fail0verflow's, under GPLv2 or later.
+GPLv3, see `LICENSE`. The Homebrew Channel's banner art is fail0verflow's, under GPLv2 or later. The vWii loader uses GPLv2; its license is also included in the vWii ZIP’s `LICENSE`.
 
 ---
 

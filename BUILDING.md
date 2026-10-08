@@ -19,7 +19,26 @@ These aren't in the repo, because they're other people's work.
 
 Different file names? Change them in `build/tools/hbcud.py`, where every setting lives.
 
-## Build
+## Platform packages
+
+```sh
+build/build.sh --release
+```
+
+This rebuilds the forwarder and makes `build/out/Wii-ONLY-UHBC-v1.zip` and
+`build/out/vWii-ONLY-UHBC-v1.zip`. Both keep the v1.0.0 ZIP layout: `UHBC-v1/`
+containing the WAD, README and license. The Wii package keeps its original loader;
+the vWii package uses FIX94’s r2 loader. The root-level Wii WAD stays untouched.
+
+This path reuses its finished banner, so it needs only devkitPPC, Python and
+PyCryptodome (installed in the build venv), plus `donor/00000001-vwii.app`.
+Extract `00000001.app` from [FIX94’s r2 ZIP](https://github.com/FIX94/tiny-vwii-nand-loader/blob/2eed1fa0a5c88bda0c96d47cf31fcde88c6c344e/binary/vWii_NAND_Loader_svn_r2.zip) and save it as `donor/00000001-vwii.app`.
+The build checks its SHA-256; other loaders are rejected.
+
+Use `--wii` or `--vwii` instead for just that platform’s WAD in `build/out/`.
+Run regression checks with `build/.venv/bin/python -m unittest discover -s build/tests -v`.
+
+## Rebuild the banner
 
 ```sh
 build/build.sh
@@ -38,6 +57,7 @@ This also renders the images in `preview/` and `build/out/banner_16_9.mp4`, a vi
 - `forwarder/`: the forwarder DOL (`make`, with `DEVKITPRO` set).
 - `build/tools/build_banner.py`: turns the banner and icon upside down.
 - `build/tools/build_wad.py`: packs the banner and forwarder into a WAD with title ID `UHBC`.
+- `build/tools/package_release.py`: builds and checks the two platform ZIPs.
 - `build/tools/verify.py`: the console checks.
 - `build/tools/render.py`, `make_previews.py`, `make_video.py`: the previews. They render the finished files, so a mistake in the WAD shows up in them too.
 - `build/tools/wiilib.py`, `tpl.py`: WAD, archive, compression and texture helpers.
