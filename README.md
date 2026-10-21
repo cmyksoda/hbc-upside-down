@@ -181,7 +181,7 @@ Community HBC forwarders start `00000000.app` with HBC 1.0's 64-byte build tag (
 
 ## License
 
-GPLv3, see `LICENSE`. The Homebrew Channel's banner art is fail0verflow's, under GPLv2 or later. The vWii loader uses GPLv2; its license is also included in the vWii ZIP’s `LICENSE`.
+The Homebrew Channel, Upside Down is free software under the [GNU General Public License, version 3](LICENSE). The Homebrew Channel's banner art is fail0verflow's, under GPL version 2 or later. The vWii loader uses GPL version 2; its license is also included in the vWii ZIP’s `LICENSE`.
 
 ---
 
